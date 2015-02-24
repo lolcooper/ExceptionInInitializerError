@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Exceptionininitializererror : ExceptionInInitializerError">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Exceptionininitializererror</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/lolcooper/ExceptionInInitializerError">View on GitHub</a>
+
+          <h1 id="project_title">Exceptionininitializererror</h1>
+          <h2 id="project_tagline">ExceptionInInitializerError</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/lolcooper/ExceptionInInitializerError/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/lolcooper/ExceptionInInitializerError/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>public class main extends JavaPlugin {</p>
+
+<pre><code>public static String Prefix = ChatColor.DARK_GREEN + "[xReligion] ";
+public static Connection c = null;
+public static int MaxReligions = 6;
+
+public void onEnable()
+{
+    System.out.println("[xReligion] Coder: ReborN");
+    System.out.println("[xReligion] Plugin was successfully activated!");
+    System.out.println("[xReligion] Please do not publish a changed SourceCode");
+    System.out.println("if you hadn't asked me");
+    System.out.println("[xReligion] Expect cool stuff :)");
+
+    //Loading config.yml
+    LoadConfig();
+    //Register Commands (CommandExecutor)
+    RegisterCommands();
+
+    //MySQL Connection
+    try {
+        MySQL MySQL = new MySQL(this, this.getConfig().getString("MySQL.Host"), this.getConfig().getString("MySQL.Port"), this.getConfig().getString("MySQL.Database"), this.getConfig().getString("MySQL.User"), this.getConfig().getString("MySQL.Password"));
+        c = MySQL.openConnection();
+        System.out.println("[xReligion] MySQL Connection was successful!");
+    } catch (ClassNotFoundException e) {
+        // TODO Auto-generated catch block
+        System.out.println("[xReligion] MySQL Connection - ERROR [1]");
+        e.printStackTrace();
+    } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        System.out.println("[xReligion] MySQL Connection - ERROR [2]");
+        e.printStackTrace();
+    }
+    //SevenDayTimer sdt = new SevenDayTimer();
+    SevenDayTimer.SevenDayStartTimer();
+}
+</code></pre>
+
+<p>public class SevenDayTimer extends JavaPlugin {</p>
+
+<pre><code>public static int RelTiming = new main().getConfig().getInt("Sunday.Time");
+public static Calendar cal = Calendar.getInstance();
+@SuppressWarnings("deprecation")
+public static int min = cal.getTime().getMinutes();
+
+@SuppressWarnings("deprecation")
+public static void SevenDayStartTimer()
+{
+    Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(new main(), new Runnable() {
+
+        public void run()
+        {
+
+            if(min == RelTiming)
+            {
+                System.out.println("Sonntag!");
+                min++;
+                BreakSevenDayTimer();
+            }
+        }
+    }, 0L, 20L);
+}
+
+@SuppressWarnings("deprecation")
+private static void BreakSevenDayTimer()
+{
+    Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(new main(), new Runnable() {
+
+        public void run()
+        {
+            Calendar cal = Calendar.getInstance();
+            min = cal.getTime().getMinutes();
+        }
+    }, 20*60L);
+}
+</code></pre>
+
+<p>}</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Exceptionininitializererror maintained by <a href="https://github.com/lolcooper">lolcooper</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
